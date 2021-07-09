@@ -26,6 +26,11 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'io.cucumber:cucumber-jvm:6.10.4'
+	implementation 'io.cucumber:cucumber-spring:6.10.4'
+	testImplementation 'io.cucumber:cucumber-java:6.10.4'
+	testImplementation 'io.cucumber:cucumber-junit:6.10.4'
+	testImplementation 'com.codeborne:selenide:5.22.3'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
