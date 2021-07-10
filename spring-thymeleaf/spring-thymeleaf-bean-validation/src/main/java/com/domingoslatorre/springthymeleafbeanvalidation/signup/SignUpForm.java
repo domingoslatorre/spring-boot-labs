@@ -19,7 +19,7 @@ public class SignUpForm {
     private String password;
 
     @NotNull
-    private FavoriteLanguage favoriteLanguage;
+    private FavoriteLanguage favoriteLanguage = FavoriteLanguage.values()[0];
 
     @NotNull
     private Boolean vehicle1;
@@ -29,6 +29,6 @@ public class SignUpForm {
     private Boolean vehicle3;
 
     @Valid @NotNull
-    private Colors colors;
+    private Colors colors = new Colors();
 
 }

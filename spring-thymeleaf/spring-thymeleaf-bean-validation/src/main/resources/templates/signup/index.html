@@ -10,7 +10,7 @@
 <body>
 <table>
 </table>
-  <h1>Sign Up X</h1>
+  <h1>Sign Up</h1>
   <form th:object="${signUpForm}" th:action="${action}" method="POST">
     <fieldset>
       <legend>Basic Data</legend>
@@ -54,22 +54,23 @@
         <label for="vehicle3">I have a boat</label>
       </div>
     </fieldset>
-
-    <fieldset>
+    <fieldset th:object="${signUpForm.colors}">
       <legend>Colors</legend>
       <div>
-        <input type="checkbox" id="green" name="colors.green">
+        <input type="checkbox" id="green" th:field="*{green}">
         <label for="green">Green</label>
       </div>
+      <div class="invalid-feedback" th:errors="*{green}"></div>
       <div>
-        <input type="checkbox" id="blue" name="colors.blue">
+        <input type="checkbox" id="blue" th:field="*{blue}">
         <label for="blue">Blue</label>
       </div>
+      <div class="invalid-feedback" th:errors="*{blue}"></div>
       <div>
-        <input type="checkbox" id="red" name="colors.red">
+        <input type="checkbox" id="red" th:field="*{red}">
         <label for="red">Red</label>
       </div>
-      <div class="invalid-feedback" th:errors="*{colors}"></div>
+      <div class="invalid-feedback" th:errors="*{red}"></div>
     </fieldset>
     <button type="submit" name="submit">Sign In</button>
   </form>
