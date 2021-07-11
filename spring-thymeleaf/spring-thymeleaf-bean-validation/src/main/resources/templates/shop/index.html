@@ -1,0 +1,56 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link th:href="@{css/style.css}" rel="stylesheet" />
+  <title>Sign Up</title>
+</head>
+<body>
+<table>
+</table>
+  <h1>Shop List</h1>
+
+
+  <form th:object="${shopListForm}" th:action="${action}" method="POST">
+    <ul>
+      <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
+        <span th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
+        <span th:text="${e.message}">The error message</span>
+      </li>
+    </ul>
+
+    <fieldset>
+      <legend>Basic Data</legend>
+      <div class="form-group">
+        <label for="listName">List name</label>
+        <input id="listName" type="text" th:field="*{listName}" th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{listName}"></div>
+      </div>
+    </fieldset>
+    <fieldset id="listItem">
+      <legend>List Itens</legend>
+      <div class="invalid-feedback" th:errors="*{itens}"></div>
+      <div class="form-group" th:each="item, stat : *{itens}" th:data-item-id="${stat.index}">
+        <input type="text" th:field="*{itens[__${stat.index}__].name}">
+        <div class="invalid-feedback" th:errors="*{itens[__${stat.index}__].name}"></div>
+        <input type="text" th:field="*{itens[__${stat.index}__].quantity}">
+        <div class="invalid-feedback" th:errors="*{itens[__${stat.index}__].quantity}"></div>
+        <hr>
+      </div>
+<!--      <div class="form-group">-->
+<!--        <input type="text" name="itens[0].name">-->
+<!--        <input type="number" name="itens[0].quantity">-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <input type="text" name="itens[1].name">-->
+<!--        <input type="number" name="itens[1].quantity">-->
+<!--      </div>-->
+    </fieldset>
+    <button id="oneMore">One more item</button>
+    <button type="submit" name="submit">Save</button>
+  </form>
+  <script th:src="@{js/shoplist.js}"></script>
+</body>
+</html>
