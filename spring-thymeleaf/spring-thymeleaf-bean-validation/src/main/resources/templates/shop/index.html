@@ -11,7 +11,16 @@
 <table>
 </table>
   <h1>Shop List</h1>
+
+
   <form th:object="${shopListForm}" th:action="${action}" method="POST">
+    <ul>
+      <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
+        <span th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
+        <span th:text="${e.message}">The error message</span>
+      </li>
+    </ul>
+
     <fieldset>
       <legend>Basic Data</legend>
       <div class="form-group">
@@ -22,24 +31,21 @@
     </fieldset>
     <fieldset id="listItem">
       <legend>List Itens</legend>
+      <div class="invalid-feedback" th:errors="*{itens}"></div>
       <div class="form-group" th:each="item, stat : *{itens}" th:data-item-id="${stat.index}">
         <input type="text" th:field="*{itens[__${stat.index}__].name}">
+        <div class="invalid-feedback" th:errors="*{itens[__${stat.index}__].name}"></div>
         <input type="text" th:field="*{itens[__${stat.index}__].quantity}">
+        <div class="invalid-feedback" th:errors="*{itens[__${stat.index}__].quantity}"></div>
         <hr>
       </div>
-
-
 <!--      <div class="form-group">-->
-<!--        <input type="text" name="itens[].name">-->
-<!--        <input type="number" name="itens[].quantity">-->
+<!--        <input type="text" name="itens[0].name">-->
+<!--        <input type="number" name="itens[0].quantity">-->
 <!--      </div>-->
 <!--      <div class="form-group">-->
-<!--        <input type="text" name="itens[].name">-->
-<!--        <input type="number" name="itens[].quantity">-->
-<!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <input type="text" name="itens[].name">-->
-<!--        <input type="number" name="itens[].quantity">-->
+<!--        <input type="text" name="itens[1].name">-->
+<!--        <input type="number" name="itens[1].quantity">-->
 <!--      </div>-->
     </fieldset>
     <button id="oneMore">One more item</button>

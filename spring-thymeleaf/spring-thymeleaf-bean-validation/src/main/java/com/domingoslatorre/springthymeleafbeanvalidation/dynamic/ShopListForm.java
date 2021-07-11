@@ -13,7 +13,7 @@ public class ShopListForm {
     @NotNull @NotBlank
     private String listName;
 
-    @Valid @Size(min = 1, max = 20)
+    @Valid @Size(min = 1, max = 3)
     private List<ShopItem> itens;
 
 }
