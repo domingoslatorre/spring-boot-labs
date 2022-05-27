@@ -39,10 +39,10 @@ public class UserRestController {
     }
 
     private User convertToUser(UserCreateDto dto, PasswordEncoder passwordEncoder) {
-        return new User(dto.email(), dto.name(), passwordEncoder.encode(dto.password()), true);
+        return new User(dto.name(), dto.email(), passwordEncoder.encode(dto.password()), dto.role(), true);
     }
 
     private UserDto convertToUserDto(User user) {
-        return new UserDto(user.getId(), user.getEmail(), user.getName(), user.getActive());
+        return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getRole(), user.getActive());
     }
 }
