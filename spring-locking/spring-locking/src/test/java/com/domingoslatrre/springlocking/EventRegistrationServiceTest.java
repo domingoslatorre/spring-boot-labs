@@ -40,12 +40,11 @@ public class EventRegistrationServiceTest {
     }
 
     @Test
-    public void concurrentRegistrationWithtOptimisticLock() throws InterruptedException {
+    public void concurrentRegistrationWithOptimisticLock() throws InterruptedException {
         Event event = new Event("Best Event A", 100);
         eventRepository.save(event);
         UUID eventId = event.getId();
-        for (int i = 0; i < 110; i++) {
-            Thread.sleep(100L);
+        for (int i = 0; i < 500; i++) {
             new Thread(() -> {
                 eventRegistrationService.registerWithOptimisticLock(eventId);
             }).start();

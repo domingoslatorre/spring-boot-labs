@@ -17,10 +17,4 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
     @Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)
     @Query("select e from Event e where e.id = :id")
     Optional<Event> findByIdWithOptimisticLock(UUID id);
-
-//    @Query(
-//        value = "update event set comment_count = :commentCount, version = version + 1 where id = :id and version = :version",
-//        nativeQuery = true
-//    )
-//    int updateEventWithVersion(UUID id);
 }

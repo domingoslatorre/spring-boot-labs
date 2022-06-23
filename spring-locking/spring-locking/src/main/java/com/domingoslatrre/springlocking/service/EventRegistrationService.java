@@ -25,6 +25,7 @@ public class EventRegistrationService {
     private final EventRegistrationRepository eventRegistrationRepository;
     private final TransactionTemplate transactionTemplate;
 
+    // Without Lock
     @Transactional
     public Pair<Event, EventRegistration> register(UUID eventId) {
         var event = eventRepository.findById(eventId)
@@ -43,6 +44,7 @@ public class EventRegistrationService {
         return Pair.of(event, eventRegistration);
     }
 
+    // Pessimistic Strategy
     @Transactional
     public Pair<Event, EventRegistration> registerWithPessimisticLock(UUID eventId) {
         var event = eventRepository.findByIdWithPessimisticLock(eventId)
@@ -61,17 +63,16 @@ public class EventRegistrationService {
         return Pair.of(event, eventRegistration);
     }
 
-    @Transactional
+
+    // Optimistic Strategy with Retry and TransactionTemplate
     @Retry(times = 3, on = OptimisticLockException.class)
     public Pair<Event, EventRegistration> registerWithOptimisticLock(UUID eventId) {
         return transactionTemplate.execute(
             status -> {
-                System.out.println(eventId);
                 var event = eventRepository.findByIdWithOptimisticLock(eventId)
                     .orElseThrow(() -> new RuntimeException("Event notfound"));
 
                 if(event.isFull()) {
-                    System.out.println("FULLL");
                     throw new RuntimeException("Event is full");
                 }
 
